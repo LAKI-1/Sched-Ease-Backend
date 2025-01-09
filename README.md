@@ -1,2 +1,2 @@
-# Sched-Ease-Mobile-Backend
+# Sched-Ease-Backend
 Scheduling Made Easy
