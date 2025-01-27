@@ -28,6 +28,17 @@ public class GoogleCalendarService {
         return events.getItems();
     }
 
+    public List<Event> getUpcomingEvents(int noOfResults) throws Exception {
+        Events events = googleCalendar.events().list("primary")
+                .setMaxResults(noOfResults)
+                .setTimeMin(new com.google.api.client.util.DateTime(System.currentTimeMillis()))
+                .setOrderBy("startTime")
+                .setSingleEvents(true)
+                .execute();
+
+        return events.getItems();
+    }
+
     public List<Event> getUserAppointments() throws Exception {
         // Fetch all events from the primary calendar
         Events events = googleCalendar.events().list("primary")
