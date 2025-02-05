@@ -7,25 +7,18 @@ import jakarta.persistence.*;
 public class Lecturer {
 
     @Column(name = "Lecturer_Id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private @Id Long id;
 
     @Column(name = "Lecturer_Name")
     private String name;
 
-    @Column(name = "SDGP_Supervisor_Flag")
-    private boolean SDGPSupervisorFlag;
+    @Column(name = "Lecturer_Email")
+    private String email;
 
-    @Column(name = "SDGP_Administrator_Flag")
-    private boolean SDGPAdministratorFlag;
-
-    @Column(name = "SDGP_Feedback_Instructor_Flag")
-    private boolean SDGPFeedbackInstructorFlag;
-
-    @Column(name = "Viva_Instructor_Flag")
-    private boolean VivaInstructorFlag;
-
-    @Column(name = "Viva_Assistant_Flag")
-    private boolean VivaAssistantFlag;
+    @ManyToOne
+    @JoinColumn(name = "Lecturers_Chat_Id", nullable = false)
+    private Chat lecturersChatId;
 
     @Transient
     private int someNumber = 98;
@@ -42,4 +35,7 @@ public class Lecturer {
         this.name = name;
     }
 
+    public Long getId() {
+        return this.id;
+    }
 }
