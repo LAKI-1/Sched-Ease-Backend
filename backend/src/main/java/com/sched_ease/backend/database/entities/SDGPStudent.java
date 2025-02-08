@@ -17,8 +17,8 @@ public class SDGPStudent extends Student{
     private Boolean leaderFlag;
 
     @ManyToOne
-    @JoinColumn(name = "Student_Group_Id", nullable = false)
-    private StudentGroup studentGroup;
+    @JoinColumn(name = "Student_Group_Id")
+    private TutorialGroup tutorialGroup;
 
     @ManyToOne
     @JoinColumn(name = "Sdgp_Gorup_No", nullable = false)

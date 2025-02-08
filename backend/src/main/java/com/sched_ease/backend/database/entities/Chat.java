@@ -18,6 +18,7 @@ public class Chat {
     private String name;
 
     @OneToMany(mappedBy = "id", cascade = CascadeType.ALL, orphanRemoval = true)
+    @Column(name = "Chat_Entries")
     private List<ChatEntries> entries = new ArrayList<>();
 
     public Chat() {

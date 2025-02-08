@@ -4,8 +4,8 @@ package com.sched_ease.backend.database.entities;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "Student_Group")
-public class StudentGroup {
+@Table(name = "Tutorial_Group")
+public class TutorialGroup {
 
     @Column(name = "Student_Group_Id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,5 +24,5 @@ public class StudentGroup {
     @JoinColumn(name = "TimeTable_Id")
     private TimeTable timeTable;
 
-    public StudentGroup() {}
+    public TutorialGroup() {}
 }
