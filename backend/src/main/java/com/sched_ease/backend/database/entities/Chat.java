@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
+@Inheritance(strategy = InheritanceType.JOINED) // Creates separate tables for each subclass
 @Table(name = "Chat")
 public class Chat {
 

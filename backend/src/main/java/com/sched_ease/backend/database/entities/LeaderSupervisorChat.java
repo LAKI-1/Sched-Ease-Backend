@@ -4,17 +4,21 @@ package com.sched_ease.backend.database.entities;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "Leader-Supervisor_Chat")
-public class LeaderSupervisorChat {
+@PrimaryKeyJoinColumn(name = "Leader-Supervisor_Chat_Id") // Uses the same ID as Lecturer
 
-    @Id
-    @OneToOne
-    @JoinColumn(name = "Leader-Supervisor_Chat_Id")
-    private Chat leaderSupervisorChat;
+@Table(name = "Leader-Supervisor_Chat")
+public class LeaderSupervisorChat extends Chat{
+
+//    @Id
+//    @OneToOne
+//    @JoinColumn(name = "Leader-Supervisor_Chat_Id", referencedColumnName = "Chat_Id")
+//    private Chat leaderSupervisorChat;
 
     @ManyToOne
     @JoinColumn(name = "Supervising_Lecturer_Id", nullable = false)
     private Lecturer supervisingLecturer;
 
-    public LeaderSupervisorChat() {}
+    public LeaderSupervisorChat() {
+        super();
+    }
 }

@@ -5,12 +5,13 @@ import jakarta.persistence.*;
 
 @Entity
 @Table(name = "SDGP_Student")
-public class SDGPStudent {
+@PrimaryKeyJoinColumn(name = "SDGP_Student_Id") // Uses the same ID as Lecturer
+public class SDGPStudent extends Student{
 
-    @Id
-    @OneToOne
-    @JoinColumn(name = "SDGP_Student_Id")
-    private Student student;
+//    @Id
+//    @OneToOne
+//    @JoinColumn(name = "SDGP_Student_Id", referencedColumnName = "Student_Id")
+//    private Student student;
 
     @Column(name = "SDGP_Leader_Flag")
     private Boolean leaderFlag;
@@ -27,5 +28,7 @@ public class SDGPStudent {
     @JoinColumn(name = "Leader-Supervisor_Chat_Id", nullable = true)
     private LeaderSupervisorChat leaderSupervisorChat;
 
-    public SDGPStudent() {}
+    public SDGPStudent() {
+        super();
+    }
 }

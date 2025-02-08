@@ -3,6 +3,7 @@ package com.sched_ease.backend.database.entities;
 import jakarta.persistence.*;
 
 @Entity
+@Inheritance(strategy = InheritanceType.JOINED) // Creates separate tables for each subclass
 @Table(name = "Lecturer")
 public class Lecturer {
 
