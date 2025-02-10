@@ -4,8 +4,7 @@ package com.sched_ease.backend.database.entities;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "SDGP_Student")
-@PrimaryKeyJoinColumn(name = "SDGP_Student_Id") // Uses the same ID as Lecturer
+// @PrimaryKeyJoinColumn(name = "SDGP_Student_Id") // Uses the same ID as Lecturer
 public class SDGPStudent extends Student{
 
 //    @Id
@@ -17,8 +16,8 @@ public class SDGPStudent extends Student{
     private Boolean leaderFlag;
 
     @ManyToOne
-    @JoinColumn(name = "Student_Group_Id")
-    private TutorialGroup tutorialGroup;
+    @JoinColumn(name = "Student_Group_Id", nullable = false)
+    private TutorialGroup studentGroup;
 
     @ManyToOne
     @JoinColumn(name = "Sdgp_Gorup_No", nullable = false)

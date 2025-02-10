@@ -1,16 +1,16 @@
 package com.sched_ease.backend.database.entities;
 
-
 import jakarta.persistence.*;
 
 @Entity
-@Inheritance(strategy = InheritanceType.JOINED) // Creates separate tables for each subclass
-@Table(name="Student")
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@Table(name = "Student")
 public class Student {
 
-    @Column(name = "Student_Id")
+    @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private @Id Long id;
+    @Column(name = "Student_Id")
+    private Long id;
 
     @Column(name = "Student_Name")
     private String name;
@@ -27,6 +27,65 @@ public class Student {
     @Column(name = "Student_Registration_Year")
     private String year;
 
+    @ManyToOne
+    @JoinColumn(name = "Tutorial_Group_Id")
+    private TutorialGroup tutorialGroup; // Assuming you have this class to represent the tutorial group
 
-    public Student() {}
+    // Getters and setters for all fields
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public TutorialGroup getTutorialGroup() {
+        return tutorialGroup;
+    }
+
+    public void setTutorialGroup(TutorialGroup tutorialGroup) {
+        this.tutorialGroup = tutorialGroup;
+    }
+
+    public String getCourse() {
+        return course;
+    }
+
+    public void setCourse(String course) {
+        this.course = course;
+    }
+
+    public String getSemester() {
+        return semester;
+    }
+
+    public void setSemester(String semester) {
+        this.semester = semester;
+    }
+
+    public String getYear() {
+        return year;
+    }
+
+    public void setYear(String year) {
+        this.year = year;
+    }
 }
