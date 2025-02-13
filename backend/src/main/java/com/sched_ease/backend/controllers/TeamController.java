@@ -19,8 +19,10 @@ public class TeamController {
     private TeamService teamService;
 
     @PostMapping("/register")
-    public ResponseEntity<TeamResponse> registerTeam(@RequestParam String teamType,
-                                                     @RequestParam List<Long> memberIds) {
+    public ResponseEntity<TeamResponse> registerTeam(
+            @RequestParam String teamType,
+            @RequestParam List<Long> memberIds) {
+
         if (memberIds.isEmpty()) {
             return ResponseEntity.badRequest().body(null);
         }

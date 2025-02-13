@@ -22,13 +22,16 @@ public class TeamService {
     private StudentRepository studentRepository;
 
     public Team registerTeam(String teamType, List<Long> memberIds) {
+        if (!teamType.equals("CS") && !teamType.equals("SE")) {
+            throw new IllegalArgumentException("Invalid team type.");
+        }
+
         List<Student> teamMembers = studentRepository.findAllById(memberIds);
         if (teamMembers.size() != memberIds.size()) {
             throw new MemberNotFoundException("Some members not found");
         }
 
-        // Optional team size validation
-        if (teamMembers.size() > 10) { // Example size limit
+        if (teamMembers.size() > 10) {
             throw new IllegalArgumentException("A team cannot have more than 10 members.");
         }
 

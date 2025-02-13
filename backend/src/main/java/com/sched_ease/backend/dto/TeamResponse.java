@@ -21,7 +21,6 @@ public class TeamResponse {
             this.tutorialGroup = tutorialGroup;
         }
 
-        // Getters and setters
         public String getName() {
             return name;
         }
@@ -61,7 +60,6 @@ public class TeamResponse {
         this.teamMembers = teamMembers;
     }
 
-    // Getters and setters
     public Long getTeamId() {
         return teamId;
     }

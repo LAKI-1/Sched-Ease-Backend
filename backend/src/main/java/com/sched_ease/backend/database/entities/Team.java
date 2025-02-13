@@ -19,7 +19,6 @@ public class Team {
     @JoinColumn(name = "Team_Id")
     private List<Student> teamMembers;
 
-    // Getters and Setters
 
     public Long getId() {
         return id;

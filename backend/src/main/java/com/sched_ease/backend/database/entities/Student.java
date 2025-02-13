@@ -3,7 +3,7 @@ package com.sched_ease.backend.database.entities;
 import jakarta.persistence.*;
 
 @Entity
-@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@Inheritance(strategy = InheritanceType.JOINED)
 @Table(name = "Student")
 public class Student {
 
@@ -29,9 +29,11 @@ public class Student {
 
     @ManyToOne
     @JoinColumn(name = "Tutorial_Group_Id")
-    private TutorialGroup tutorialGroup; // Assuming you have this class to represent the tutorial group
+    private TutorialGroup tutorialGroup;
 
-    // Getters and setters for all fields
+    @ManyToOne
+    @JoinColumn(name = "Team_Id")  // Foreign key should be here
+    private Team team;
 
     public Long getId() {
         return id;
@@ -87,5 +89,13 @@ public class Student {
 
     public void setYear(String year) {
         this.year = year;
+    }
+
+    public Team getTeam() {
+        return team;
+    }
+
+    public void setTeam(Team team) {
+        this.team = team;
     }
 }
