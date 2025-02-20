@@ -13,9 +13,12 @@ import com.google.api.client.json.gson.GsonFactory;
 import com.google.api.services.calendar.CalendarScopes;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import io.github.cdimascio.dotenv.Dotenv;
 
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.StringReader;
 import java.util.Collections;
 import java.util.List;
 
@@ -23,18 +26,34 @@ import java.util.List;
 public class GoogleCalendarConfig {
 
     private static final JsonFactory JSON_FACTORY = GsonFactory.getDefaultInstance();
-    private static final String TOKENS_DIRECTORY_PATH = "tokens";
+//    private static final String TOKENS_DIRECTORY_PATH = "tokens";
     private static final List<String> SCOPES = Collections.singletonList(CalendarScopes.CALENDAR_READONLY);
-    private static final String CREDENTIALS_FILE_PATH = "/credentials.json";
+//    private static final String CREDENTIALS_FILE_PATH = "/credentials.json";
 
     @Bean
     public Credential googleCredential() throws Exception {
-        InputStream in = getClass().getResourceAsStream(CREDENTIALS_FILE_PATH);
-        if (in == null) {
-            throw new Exception("Resource not found: " + CREDENTIALS_FILE_PATH);
+//        InputStream in = getClass().getResourceAsStream(CREDENTIALS_FILE_PATH);
+//        if (in == null) {
+//            throw new Exception("Resource not found: " + CREDENTIALS_FILE_PATH);
+//        }
+//
+//        GoogleClientSecrets clientSecrets = GoogleClientSecrets.load(JSON_FACTORY, new InputStreamReader(in));
+
+        Dotenv dotenv = Dotenv.configure()
+                .filename("secrets.env") // Explicitly load secrets.env
+                .ignoreIfMissing()
+                .load();
+        String clientId = dotenv.get("GOOGLE_CLIENT_ID");
+        String clientSecret = dotenv.get("GOOGLE_CLIENT_SECRET");
+
+        if (clientId == null || clientSecret == null) {
+            throw new IOException("Missing Google OAuth credentials in environment variables");
         }
 
-        GoogleClientSecrets clientSecrets = GoogleClientSecrets.load(JSON_FACTORY, new InputStreamReader(in));
+        // Build GoogleClientSecrets JSON string
+        String jsonSecrets = String.format("{\"installed\": {\"client_id\": \"%s\", \"client_secret\": \"%s\"}}", clientId, clientSecret);
+
+        GoogleClientSecrets clientSecrets = GoogleClientSecrets.load(JSON_FACTORY, new StringReader(jsonSecrets));
 
         GoogleAuthorizationCodeFlow flow = new GoogleAuthorizationCodeFlow.Builder(
                 GoogleNetHttpTransport.newTrustedTransport(),

@@ -1,7 +1,11 @@
 package com.sched_ease.backend.database.entities;
 
 
+import com.sched_ease.backend.database.converters.ZonedDateTimeConverter;
 import jakarta.persistence.*;
+
+import java.time.DayOfWeek;
+import java.time.ZonedDateTime;
 
 @Entity
 @Table(name = "Lecturer_Avaialbility")
@@ -14,14 +18,16 @@ public class LecturerAvailability {
     @Column(name = "Day_Of_The_Week")
     private String dayOfWeek;
 
+    @Convert(converter = ZonedDateTimeConverter.class)
     @Column(name = "Begining_Time")
-    private String beginTime;
+    private ZonedDateTime beginTime;
 
+    @Convert(converter = ZonedDateTimeConverter.class)
     @Column(name = "End_Time")
-    private String endTime;
+    private ZonedDateTime endTime;
 
-    @ManyToOne
-    @JoinColumn(name = "Lecturer_Id", nullable = false)
+    @ManyToOne(fetch = FetchType.EAGER, optional = true)
+    @JoinColumn(name = "Lecturer_Id", nullable = true)
     private Lecturer lecturer;
 
     public LecturerAvailability() {

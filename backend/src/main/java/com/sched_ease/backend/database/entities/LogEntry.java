@@ -1,7 +1,10 @@
 package com.sched_ease.backend.database.entities;
 
 
+import com.sched_ease.backend.database.converters.ZonedDateTimeConverter;
 import jakarta.persistence.*;
+
+import java.time.ZonedDateTime;
 
 @Entity
 @Table(name = "Log_entry")
@@ -14,11 +17,12 @@ public class LogEntry {
     @Column(name = "Entry")
     private String entry;
 
+    @Convert(converter = ZonedDateTimeConverter.class)
     @Column(name = "Timestamp")
-    private String timestamp;
+    private ZonedDateTime timestamp;
 
-    @ManyToOne
-    @JoinColumn(name = "SDGP_Group_No")
+    @ManyToOne(fetch = FetchType.EAGER, optional = true)
+    @JoinColumn(name = "SDGP_Group_No", nullable = true)
     private SDGPGroup sdgpGroup;
 
     public LogEntry() {}

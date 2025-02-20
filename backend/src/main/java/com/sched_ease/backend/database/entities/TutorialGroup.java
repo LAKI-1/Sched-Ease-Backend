@@ -2,6 +2,9 @@ package com.sched_ease.backend.database.entities;
 
 import jakarta.persistence.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 @Table(name = "Student_Group")
 public class TutorialGroup {
@@ -19,6 +22,13 @@ public class TutorialGroup {
 
     @Column(name = "Course")
     private String course;
+
+    @ManyToOne(fetch = FetchType.EAGER, optional = true)
+    @JoinColumn(name = "TimeTable_Id", nullable = true)
+    private TimeTable timeTable;
+
+    @OneToMany(mappedBy = "tutorialGroup", cascade = {CascadeType.PERSIST, CascadeType.MERGE}, orphanRemoval = true)
+    private List<Student> Students = new ArrayList<>();
 
     public TutorialGroup() {}
 
