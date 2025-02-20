@@ -15,17 +15,17 @@ public class SDGPStudent extends Student{
     @Column(name = "SDGP_Leader_Flag")
     private Boolean leaderFlag;
 
-    @ManyToOne
-    @JoinColumn(name = "Student_Group_Id", nullable = false)
-    private TutorialGroup studentGroup;
+//    @ManyToOne
+//    @JoinColumn(name = "Student_Group_Id", nullable = false)
+//    private TutorialGroup studentGroup;
 
-    @ManyToOne
-    @JoinColumn(name = "Sdgp_Gorup_No", nullable = false)
+    @ManyToOne(fetch = FetchType.EAGER, optional = true)
+    @JoinColumn(name = "Sdgp_Gorup_No", nullable = true)
     private SDGPGroup SDGPGroup;
 
-    @ManyToOne
-    @JoinColumn(name = "Leader-Supervisor_Chat_Id", nullable = true)
-    private LeaderSupervisorChat leaderSupervisorChat;
+    @ManyToOne(fetch = FetchType.EAGER, optional = true)
+    @JoinColumn(name = "Leaders-Supervisor_Chat_Id", nullable = true)
+    private LeadersSupervisorChat leadersSupervisorChat;
 
     public SDGPStudent() {
         super();
@@ -39,14 +39,6 @@ public class SDGPStudent extends Student{
         this.leaderFlag = leaderFlag;
     }
 
-    public TutorialGroup getStudentGroup() {
-        return studentGroup;
-    }
-
-    public void setStudentGroup(TutorialGroup studentGroup) {
-        this.studentGroup = studentGroup;
-    }
-
     public SDGPGroup getSDGPGroup() {
         return SDGPGroup;
     }
@@ -55,11 +47,11 @@ public class SDGPStudent extends Student{
         this.SDGPGroup = SDGPGroup;
     }
 
-    public LeaderSupervisorChat getLeaderSupervisorChat() {
-        return leaderSupervisorChat;
+    public LeadersSupervisorChat getLeaderSupervisorChat() {
+        return leadersSupervisorChat;
     }
 
-    public void setLeaderSupervisorChat(LeaderSupervisorChat leaderSupervisorChat) {
-        this.leaderSupervisorChat = leaderSupervisorChat;
+    public void setLeaderSupervisorChat(LeadersSupervisorChat leaderSupervisorChat) {
+        this.leadersSupervisorChat = leaderSupervisorChat;
     }
 }

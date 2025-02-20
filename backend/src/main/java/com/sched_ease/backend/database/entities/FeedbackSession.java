@@ -1,7 +1,10 @@
 package com.sched_ease.backend.database.entities;
 
 
+import com.sched_ease.backend.database.converters.ZonedDateTimeConverter;
 import jakarta.persistence.*;
+
+import java.time.ZonedDateTime;
 
 @Entity
 @Table(name = "Feedback_Session")
@@ -11,8 +14,9 @@ public class FeedbackSession {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private @Id Long id;
 
+    @Convert(converter = ZonedDateTimeConverter.class)
     @Column(name = "Time_And_Date")
-    private String timeAndDate;
+    private ZonedDateTime timeAndDate;
 
     @Column(name = "Confirmation")
     private boolean confirmation;
@@ -23,17 +27,17 @@ public class FeedbackSession {
     @Column(name = "Feedback_Content")
     private String feedback;
 
-    @ManyToOne
-    @JoinColumn(name = "Feedback_Instructor_Lecturer_Id")
-    private Lecturer feedbackInstructorLecturer;
+    @ManyToOne(fetch = FetchType.EAGER, optional = true)
+    @JoinColumn(name = "Feedback_Instructor_Lecturer_Id", nullable = true)
+    private SDGPLecturer feedbackInstructorLecturer;
 
-    @ManyToOne
-    @JoinColumn(name = "Hall_Id")
+    @ManyToOne(fetch = FetchType.EAGER, optional = true)
+    @JoinColumn(name = "Hall_Id", nullable = true)
     private Hall hall;
 
-    @ManyToOne
-    @JoinColumn(name = "SDGP_Group_No")
-    private SDGPGroup sdgpGroup;
+    @ManyToOne(fetch = FetchType.LAZY, optional = true)
+    @JoinColumn(name = "SDGP_Group_No", nullable = true)
+    private SDGPGroup sDGPGroup;
 
     public FeedbackSession() {}
 }

@@ -3,6 +3,9 @@ package com.sched_ease.backend.database.entities;
 
 import jakarta.persistence.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 @Table(name = "Hall")
 public class Hall {
@@ -20,9 +23,15 @@ public class Hall {
     @Column(name = "Capacity")
     private int capacity;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "profile_id")
+    @OneToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.EAGER, optional = true)
+    @JoinColumn(name = "Timetable_Entries")
     private TimeTableEntries timeTableEntry;
+
+    @OneToOne(mappedBy = "hall")
+    private ConcurrentViva concurrentViva;
+
+    @OneToMany(mappedBy = "hall", cascade = {CascadeType.PERSIST, CascadeType.MERGE}, orphanRemoval = true)
+    private List<FeedbackSession> feedbackSessions = new ArrayList<>();
 
     public Hall() {
     }

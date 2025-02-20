@@ -27,13 +27,13 @@ public class Student {
     @Column(name = "Student_Registration_Year")
     private String year;
 
-    @ManyToOne
-    @JoinColumn(name = "Tutorial_Group_Id")
+    @ManyToOne(fetch = FetchType.EAGER, optional = true)
+    @JoinColumn(name = "Student_Group_Id", nullable=true)
     private TutorialGroup tutorialGroup;
 
-    @ManyToOne
-    @JoinColumn(name = "Team_Id")  // Foreign key should be here
-    private Team team;
+//    @ManyToOne
+//    @JoinColumn(name = "Team_Id")  // Foreign key should be here
+//    private Team team;
 
     public Long getId() {
         return id;
@@ -91,11 +91,11 @@ public class Student {
         this.year = year;
     }
 
-    public Team getTeam() {
-        return team;
-    }
+//    public Team getTeam() {
+//        return team;
+//    }
 
-    public void setTeam(Team team) {
-        this.team = team;
-    }
+//    public void setTeam(Team team) {
+//        this.team = team;
+//    }
 }

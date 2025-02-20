@@ -2,6 +2,9 @@ package com.sched_ease.backend.database.entities;
 
 import jakarta.persistence.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 @Table(name = "SDGP_Group")
 public class SDGPGroup {
@@ -20,17 +23,23 @@ public class SDGPGroup {
     @Column(name = "Registration_Status")
     private boolean registrationStatus = false;
 
-    @OneToOne
-    @JoinColumn(name = "Group_Chat_Id")
-    private Chat groupChat;
+    @OneToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.EAGER, optional = true)
+    @JoinColumn(name = "SDGP_Group_Chat_Id", nullable = true)
+    private SDGPGroupChat sDGPGroupChat;
 
-    @ManyToOne
-    @JoinColumn(name = "Viva_Session_Id")
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.EAGER, optional = true)
+    @JoinColumn(name = "Viva_Session_Id", nullable = true)
     private VivaSession vivaSession;
 
-    @ManyToOne
-    @JoinColumn(name = "Supervising_Lecturer_Id")
-    private Lecturer supervisingLecturer;
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.EAGER, optional = true)
+    @JoinColumn(name = "Supervising_Lecturer_Id", nullable = true)
+    private SDGPLecturer supervisingLecturer;
+
+    @OneToMany(mappedBy = "sDGPGroup", cascade = {CascadeType.PERSIST, CascadeType.MERGE}, orphanRemoval = true)
+    private List<FeedbackSession> feedbackSessions = new ArrayList<>();
+
+    @OneToMany(mappedBy = "sdgpGroup", cascade = {CascadeType.PERSIST, CascadeType.MERGE}, orphanRemoval = true)
+    private List<LogEntry> logEntries = new ArrayList<>();
 
     public SDGPGroup(){}
 
@@ -66,12 +75,12 @@ public class SDGPGroup {
         this.registrationStatus = registrationStatus;
     }
 
-    public Chat getGroupChat() {
-        return groupChat;
+    public Chat getSDGPGroupChat() {
+        return sDGPGroupChat;
     }
 
-    public void setGroupChat(Chat groupChat) {
-        this.groupChat = groupChat;
+    public void setSDGPGroupChat(SDGPGroupChat groupChat) {
+        this.sDGPGroupChat = groupChat;
     }
 
     public VivaSession getVivaSession() {
@@ -86,7 +95,7 @@ public class SDGPGroup {
         return supervisingLecturer;
     }
 
-    public void setSupervisingLecturer(Lecturer supervisingLecturer) {
+    public void setSupervisingLecturer(SDGPLecturer supervisingLecturer) {
         this.supervisingLecturer = supervisingLecturer;
     }
 }
