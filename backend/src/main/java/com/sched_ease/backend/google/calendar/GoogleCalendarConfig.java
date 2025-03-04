@@ -22,7 +22,7 @@ import java.io.StringReader;
 import java.util.Collections;
 import java.util.List;
 
-//@Configuration
+@Configuration
 public class GoogleCalendarConfig {
 
     private static final JsonFactory JSON_FACTORY = GsonFactory.getDefaultInstance();
