@@ -29,4 +29,36 @@ public class TimeTable {
 
     public TimeTable() {
     }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public ZonedDateTime getDateOfCreation() {
+        return dateOfCreation;
+    }
+
+    public void setDateOfCreation(ZonedDateTime dateOfCreation) {
+        this.dateOfCreation = dateOfCreation;
+    }
+
+    public ExternalAdministrator getAdministrator() {
+        return administrator;
+    }
+
+    public void setAdministrator(ExternalAdministrator administrator) {
+        this.administrator = administrator;
+    }
+
+    public List<TimeTableEntries> getTimeTableEntries() {
+        return timeTableEntries;
+    }
+
+    public void setTimeTableEntries(List<TimeTableEntries> timeTableEntries) {
+        this.timeTableEntries = timeTableEntries;
+    }
 }

@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -40,7 +41,7 @@ public class Lecturer {
     private Set<TimeTableEntries> timeTableEntries = new HashSet<>();
 
     @OneToMany(mappedBy = "lecturer", cascade = {CascadeType.PERSIST, CascadeType.MERGE}, orphanRemoval = true)
-    private ArrayList<LecturerAvailability> availabilities = new ArrayList<>();
+    private List<LecturerAvailability> availabilities = new ArrayList<>();
 
 
     public Lecturer(){}
@@ -56,5 +57,67 @@ public class Lecturer {
 
     public Long getId() {
         return this.id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getNameShort() {
+        return nameShort;
+    }
+
+    public void setNameShort(String nameShort) {
+        this.nameShort = nameShort;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public Set<TimeTableEntries> getTimeTableEntries() {
+        return timeTableEntries;
+    }
+
+    public void setTimeTableEntries(Set<TimeTableEntries> timeTableEntries) {
+        this.timeTableEntries = timeTableEntries;
+    }
+
+    public List<LecturerAvailability> getAvailabilities() {
+        return availabilities;
+    }
+
+    public void setAvailabilities(List<LecturerAvailability> availabilities) {
+        this.availabilities.clear();
+        if (availabilities != null) {
+            this.availabilities.addAll(availabilities);
+        }
+    }
+
+    // Method to add a single availability
+    public void addAvailability(LecturerAvailability availability) {
+        if (availability != null) {
+            availability.setLecturer(this);
+            this.availabilities.add(availability);
+        }
+    }
+
+    public void removeAvailability(LecturerAvailability availability) {
+        if (availability != null) {
+            this.availabilities.remove(availability);
+            availability.setLecturer(null);
+        }
     }
 }
