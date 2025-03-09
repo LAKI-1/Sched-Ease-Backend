@@ -41,6 +41,9 @@ public class SDGPGroup {
     @OneToMany(mappedBy = "sdgpGroup", cascade = {CascadeType.PERSIST, CascadeType.MERGE}, orphanRemoval = true)
     private List<LogEntry> logEntries = new ArrayList<>();
 
+    @OneToMany(mappedBy = "SDGPGroup", cascade = {CascadeType.PERSIST, CascadeType.MERGE}, orphanRemoval = true)
+    private List<SDGPStudent> students = new ArrayList<>();
+
     public SDGPGroup(){}
 
     public Long getId() {
