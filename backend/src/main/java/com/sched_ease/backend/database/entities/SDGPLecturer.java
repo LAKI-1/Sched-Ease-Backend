@@ -59,4 +59,12 @@ public class SDGPLecturer extends Lecturer{
     public SDGPLecturer(){
         super();
     }
+
+    public SDGPLecturer(Lecturer lecturer){
+        super(lecturer.getId());
+    }
+
+    public boolean isSDGPAdminFlag() {
+        return SDGPAdminFlag;
+    }
 }

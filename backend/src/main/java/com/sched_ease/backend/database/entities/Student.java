@@ -35,6 +35,21 @@ public class Student {
 //    @JoinColumn(name = "Team_Id")  // Foreign key should be here
 //    private Team team;
 
+    public Student(){}
+
+    public Student(Long id) {
+        this.id = id;
+    }
+
+    public Student(String name, String course, String email, String semester, String year, TutorialGroup tutorialGroup) {
+        this.name = name;
+        this.course = course;
+        this.email = email;
+        this.semester = semester;
+        this.year = year;
+        this.tutorialGroup = tutorialGroup;
+    }
+
     public Long getId() {
         return id;
     }
@@ -98,4 +113,14 @@ public class Student {
 //    public void setTeam(Team team) {
 //        this.team = team;
 //    }
+
+
+    @Override
+    public String toString() {
+        return "Student{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", email='" + email + '\'' +
+                '}';
+    }
 }

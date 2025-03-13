@@ -20,5 +20,8 @@ public class ExternalAdministrator {
     @OneToMany(mappedBy = "administrator", cascade = {CascadeType.PERSIST, CascadeType.MERGE}, orphanRemoval = true)
     private List<TimeTable> timeTables = new ArrayList<>();
 
+    @Column(name = "External_Administrator_Email")
+    private String email;
+
     public ExternalAdministrator() {}
 }

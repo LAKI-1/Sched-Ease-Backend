@@ -4,4 +4,6 @@ import com.sched_ease.backend.database.entities.Lecturer;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface LecturerRepository extends JpaRepository<Lecturer, Long> {
+
+    Lecturer findByEmail(String email);
 }

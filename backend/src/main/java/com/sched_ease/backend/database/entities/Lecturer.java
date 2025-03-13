@@ -57,4 +57,24 @@ public class Lecturer {
     public Long getId() {
         return this.id;
     }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getNameShort() {
+        return nameShort;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public Set<TimeTableEntries> getTimeTableEntries() {
+        return timeTableEntries;
+    }
+
+    public ArrayList<LecturerAvailability> getAvailabilities() {
+        return availabilities;
+    }
 }

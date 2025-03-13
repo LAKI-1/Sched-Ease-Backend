@@ -27,9 +27,19 @@ public class SDGPStudent extends Student{
     @JoinColumn(name = "Leaders-Supervisor_Chat_Id", nullable = true)
     private LeadersSupervisorChat leadersSupervisorChat;
 
+    public SDGPStudent(Student student) {
+//        super(student.getName(), student.getCourse(), student.getEmail(), student.getSemester(), student.getYear(), student.getTutorialGroup());
+        super(student.getId());
+        this.leaderFlag = false;
+    }
+
     public SDGPStudent() {
         super();
     }
+
+//    public SDGPStudent(Student student){
+//        super(student.getName(), student.getCourse(), student.getEmail(), student.getSemester(), student.getYear(), student.getTutorialGroup());
+//    }
 
     public Boolean getLeaderFlag() {
         return leaderFlag;
@@ -54,4 +64,6 @@ public class SDGPStudent extends Student{
     public void setLeaderSupervisorChat(LeadersSupervisorChat leaderSupervisorChat) {
         this.leadersSupervisorChat = leaderSupervisorChat;
     }
+
+
 }
