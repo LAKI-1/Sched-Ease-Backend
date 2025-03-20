@@ -101,4 +101,36 @@ public class SDGPGroup {
     public void setSupervisingLecturer(SDGPLecturer supervisingLecturer) {
         this.supervisingLecturer = supervisingLecturer;
     }
+
+    public SDGPGroupChat getsDGPGroupChat() {
+        return sDGPGroupChat;
+    }
+
+    public void setsDGPGroupChat(SDGPGroupChat sDGPGroupChat) {
+        this.sDGPGroupChat = sDGPGroupChat;
+    }
+
+    public List<FeedbackSession> getFeedbackSessions() {
+        return feedbackSessions;
+    }
+
+    public void setFeedbackSessions(List<FeedbackSession> feedbackSessions) {
+        this.feedbackSessions = feedbackSessions;
+    }
+
+    public List<LogEntry> getLogEntries() {
+        return logEntries;
+    }
+
+    public void setLogEntries(List<LogEntry> logEntries) {
+        this.logEntries = logEntries;
+    }
+
+    public List<SDGPStudent> getStudents() {
+        return students;
+    }
+
+    public void setStudents(List<SDGPStudent> students) {
+        this.students = students;
+    }
 }
