@@ -1,40 +1,37 @@
 package com.sched_ease.backend.database.entities;
 
 
+import com.google.gson.JsonObject;
 import jakarta.persistence.*;
 
 @Entity
-// @PrimaryKeyJoinColumn(name = "SDGP_Student_Id") // Uses the same ID as Lecturer
+//@PrimaryKeyJoinColumn(name = "student_id") // Uses the same ID as Student
+@Table(name = "sdgp_student")
 public class SDGPStudent extends Student{
 
-//    @Id
-//    @OneToOne
-//    @JoinColumn(name = "SDGP_Student_Id", referencedColumnName = "Student_Id")
-//    private Student student;
-
     @Column(name = "SDGP_Leader_Flag")
-    private Boolean leaderFlag;
-
-//    @ManyToOne
-//    @JoinColumn(name = "Student_Group_Id", nullable = false)
-//    private TutorialGroup studentGroup;
+    private Boolean leaderFlag = false;
 
     @ManyToOne(fetch = FetchType.EAGER, optional = true)
-    @JoinColumn(name = "Sdgp_Gorup_No", nullable = true)
+    @JoinColumn(name = "sdgp_group_chat_id", nullable = true)
     private SDGPGroup SDGPGroup;
 
     @ManyToOne(fetch = FetchType.EAGER, optional = true)
-    @JoinColumn(name = "Leaders-Supervisor_Chat_Id", nullable = true)
+    @JoinColumn(name = "leader_supervisor_chat_id", nullable = true)
     private LeadersSupervisorChat leadersSupervisorChat;
 
     public SDGPStudent(Student student) {
-//        super(student.getName(), student.getCourse(), student.getEmail(), student.getSemester(), student.getYear(), student.getTutorialGroup());
-        super(student.getId());
+        //super(student.getId(), student.getName(), student.getCourse(), student.getEmail(), student.getSemester(), student.getYear(), student.getTutorialGroup());
+
+//        this.id = student.getId();
+//        this.leaderFlag = false;
+
+        super(student.getId(), student.getName(), student.getCourse(), student.getEmail(), student.getSemester(), student.getYear(), student.getTutorialGroup());
         this.leaderFlag = false;
     }
 
     public SDGPStudent() {
-        super();
+        //super();
     }
 
 //    public SDGPStudent(Student student){
@@ -63,6 +60,22 @@ public class SDGPStudent extends Student{
 
     public void setLeaderSupervisorChat(LeadersSupervisorChat leaderSupervisorChat) {
         this.leadersSupervisorChat = leaderSupervisorChat;
+    }
+
+    @Override
+    public String toString() {
+        return "student={" +super.toString() +
+                "}, leaderFlag=" + leaderFlag +
+                ", SDGPGroup=" + SDGPGroup +
+                ", leadersSupervisorChat=" + leadersSupervisorChat;
+    }
+
+    @Override
+    public JsonObject toJson() {
+        JsonObject json = new JsonObject();
+        json.add("student", super.toJson());  // Convert superclass properties to JSON
+        json.addProperty("leaderFlag", leaderFlag);
+        return json;
     }
 
 

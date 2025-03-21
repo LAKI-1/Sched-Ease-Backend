@@ -4,7 +4,7 @@ import com.sched_ease.backend.database.entities.Lecturer;
 import com.sched_ease.backend.database.entities.SDGPLecturer;
 import com.sched_ease.backend.database.repositories.LecturerRepository;
 import com.sched_ease.backend.database.repositories.SDGPLecturerRepository;
-import com.sched_ease.backend.login.JwtUtil;
+import com.sched_ease.backend.utilities.JwtUtil;
 import org.springframework.stereotype.Service;
 
 @Service

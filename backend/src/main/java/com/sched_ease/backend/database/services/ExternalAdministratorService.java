@@ -3,7 +3,7 @@ package com.sched_ease.backend.database.services;
 import com.sched_ease.backend.database.entities.ExternalAdministrator;
 import com.sched_ease.backend.database.entities.SDGPLecturer;
 import com.sched_ease.backend.database.repositories.ExternalAdministratorRepository;
-import com.sched_ease.backend.login.JwtUtil;
+import com.sched_ease.backend.utilities.JwtUtil;
 import org.springframework.stereotype.Service;
 
 @Service

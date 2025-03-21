@@ -1,39 +1,36 @@
 package com.sched_ease.backend.database.entities;
 
+import com.google.gson.JsonObject;
 import jakarta.persistence.*;
 
 @Entity
-@Inheritance(strategy = InheritanceType.JOINED)
+@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 @Table(name = "Student")
 public class Student {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+//    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "Student_Id")
-    private Long id;
+    protected Long id;
 
-    @Column(name = "Student_Name")
+    @Column(name = "Student_Name", nullable = true)
     private String name;
 
-    @Column(name = "Student_Course")
+    @Column(name = "Student_Course", nullable = true)
     private String course;
 
-    @Column(name = "Student_Email")
+    @Column(name = "Student_Email", nullable = true)
     private String email;
 
-    @Column(name = "Student_Registration_Semester")
+    @Column(name = "Student_Registration_Semester", nullable = true)
     private String semester;
 
-    @Column(name = "Student_Registration_Year")
+    @Column(name = "Student_Registration_Year", nullable = true)
     private String year;
 
     @ManyToOne(fetch = FetchType.EAGER, optional = true)
     @JoinColumn(name = "Student_Group_Id", nullable=true)
     private TutorialGroup tutorialGroup;
-
-//    @ManyToOne
-//    @JoinColumn(name = "Team_Id")  // Foreign key should be here
-//    private Team team;
 
     public Student(){}
 
@@ -41,7 +38,8 @@ public class Student {
         this.id = id;
     }
 
-    public Student(String name, String course, String email, String semester, String year, TutorialGroup tutorialGroup) {
+    public Student(Long id, String name, String course, String email, String semester, String year, TutorialGroup tutorialGroup) {
+        this.id = id;
         this.name = name;
         this.course = course;
         this.email = email;
@@ -103,24 +101,27 @@ public class Student {
     }
 
     public void setYear(String year) {
-        this.year = year;
+        this.year = String.valueOf(year);
     }
-
-//    public Team getTeam() {
-//        return team;
-//    }
-
-//    public void setTeam(Team team) {
-//        this.team = team;
-//    }
-
 
     @Override
     public String toString() {
-        return "Student{" +
-                "id=" + id +
+        return ("id=" + id +
                 ", name='" + name + '\'' +
                 ", email='" + email + '\'' +
-                '}';
+                ", tutorialGroup=" + tutorialGroup +
+                ", course='" + course + "'");
+    }
+
+    public JsonObject toJson() {
+        JsonObject json = new JsonObject();
+        json.addProperty("id", id);
+        json.addProperty("name", name);
+        json.addProperty("email", email);
+        json.addProperty("course", course);
+        json.addProperty("semester", semester);
+        json.addProperty("year", year);
+//        json.addProperty("tutorial_group", tutorialGroup.getId());
+        return json;
     }
 }

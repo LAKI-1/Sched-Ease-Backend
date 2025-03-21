@@ -8,7 +8,7 @@ import com.sched_ease.backend.database.repositories.LecturerRepository;
 import com.sched_ease.backend.database.repositories.SDGPLecturerRepository;
 import com.sched_ease.backend.database.repositories.SDGPStudentRepository;
 import com.sched_ease.backend.database.repositories.StudentRepository;
-import com.sched_ease.backend.login.JwtUtil;
+import com.sched_ease.backend.utilities.JwtUtil;
 import org.springframework.stereotype.Service;
 
 @Service

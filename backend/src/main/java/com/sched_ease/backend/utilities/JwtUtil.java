@@ -1,5 +1,8 @@
-package com.sched_ease.backend.login;
+package com.sched_ease.backend.utilities;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonObject;
 import io.github.cdimascio.dotenv.Dotenv;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.ExpiredJwtException;
@@ -25,6 +28,8 @@ public class JwtUtil {
 
 
     private static final Key key = Keys.hmacShaKeyFor(JWT_KEY.getBytes());
+
+    private static final Gson gson = new GsonBuilder().create();
 
     public JwtUtil(){}
 
@@ -65,9 +70,19 @@ public class JwtUtil {
         });
     }
 
-    public static String extractMetaData(String token) {
-//        extractClaim(token, claims -> {claims.get("user_metadata.name")});
-        return extractClaim(token, claims -> claims.get("user_metadata").toString());
+//    public static String extractMetaData(String token) {
+////        extractClaim(token, claims -> {claims.get("user_metadata.name")});
+//        return extractClaim(token, claims -> claims.get("user_metadata").toString());
+//    }
+    public static JsonObject extractMetaData(String token) {
+        return extractClaim(token, claims -> {
+            Object metadata = claims.get("user_metadata");
+            if (metadata instanceof Map) {
+                // Convert the Map to a JsonObject
+                return gson.toJsonTree(metadata).getAsJsonObject();
+            }
+            return new JsonObject(); // Return an empty JsonObject if metadata is missing
+        });
     }
 
     // 🔹 Extract User ID from the token
