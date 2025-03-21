@@ -12,9 +12,10 @@ import java.util.Set;
 @Table(name = "Lecturer")
 public class Lecturer {
 
-    @Column(name = "Lecturer_Id")
+    @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private @Id Long id;
+    @Column(name = "Lecturer_Id")
+    private Long id;
 
     @Column(name = "Lecturer_Name")
     private String name;
