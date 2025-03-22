@@ -1,6 +1,7 @@
 package com.sched_ease.backend.database.entities;
 
 
+import com.google.gson.JsonObject;
 import jakarta.persistence.*;
 
 import java.util.ArrayList;
@@ -8,13 +9,8 @@ import java.util.List;
 
 @Entity
 @Table(name = "SDGP_Lecturer")
-@PrimaryKeyJoinColumn(name = "SDGP_Lecturer_Id") // Uses the same ID as Lecturer
+//@PrimaryKeyJoinColumn(name = "SDGP_Lecturer_Id") // Uses the same ID as Lecturer
 public class SDGPLecturer extends Lecturer{
-
-//    @Id
-//    @OneToOne
-//    @JoinColumn(name = "SDGP_Lecturer_Id", referencedColumnName = "Lecturer_Id")
-//    private Lecturer SDGPLecturer;
 
     @Column(name = "Supervisor_Flag")
     private boolean supervisorFlag;
@@ -27,10 +23,6 @@ public class SDGPLecturer extends Lecturer{
 
     @Column(name = "Viva_Instructor_Flag")
     private boolean vivaInstructorFlag;
-
-//    @ManyToOne
-//    @JoinColumn(name = "Assistant_Viva_Instructor", nullable = true)
-//    private Lecturer assistantVivaInstructor;
 
     //This is the list viva instructors that help this instructors
     @ManyToMany @JoinTable( name = "Viva-Assist_Instructors", joinColumns = @JoinColumn(name = "Assistant_Viva_Instructors"),  inverseJoinColumns = @JoinColumn(name = "Assisting_Viva_Instructors"))
@@ -61,10 +53,40 @@ public class SDGPLecturer extends Lecturer{
     }
 
     public SDGPLecturer(Lecturer lecturer){
-        super(lecturer.getId());
+        super(lecturer.getId(), lecturer.getName(), lecturer.getNameShort(), lecturer.getEmail(), lecturer.getTimeTableEntries(), lecturer.getAvailabilities());
     }
 
     public boolean isSDGPAdminFlag() {
         return SDGPAdminFlag;
+    }
+
+    @Override
+    public String toString() {
+        return "SDGPLecturer{" +
+                super.toString() +
+                "supervisorFlag=" + supervisorFlag +
+                ", SDGPAdminFlag=" + SDGPAdminFlag +
+                ", feedbackInstructorFlag=" + feedbackInstructorFlag +
+                ", vivaInstructorFlag=" + vivaInstructorFlag +
+                ", assistantVivaInstructors=" + assistantVivaInstructors +
+                ", assistingVivaInstructors=" + assistingVivaInstructors +
+                ", concurrentVivas=" + concurrentVivas +
+                ", feedbackSessions=" + feedbackSessions +
+                ", supervisingSDGPGroups=" + supervisingSDGPGroups +
+                ", sDGPLecturersChat=" + sDGPLecturersChat +
+                ", leadersSupervisorChats=" + leadersSupervisorChats +
+                '}';
+    }
+
+    @Override
+    public JsonObject toJson() {
+        JsonObject json = new JsonObject();
+        json.add("lecturer", super.toJson());  // Convert superclass properties to JSON
+//        json.addProperty("leaderFlag", leaderFlag);
+        json.addProperty("Supervisor_Flag", supervisorFlag);
+        json.addProperty("SDGP_Administrator_Flag", SDGPAdminFlag);
+        json.addProperty("Feedback_Instructor_Flag", feedbackInstructorFlag);
+        json.addProperty("Viva_Instructor_Flag", vivaInstructorFlag);
+        return json;
     }
 }

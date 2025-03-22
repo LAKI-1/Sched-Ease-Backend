@@ -70,6 +70,25 @@ public class JwtUtil {
         });
     }
 
+    public static String extractAvatar(String token) {
+//        return extractClaim(token, Claims::getSubject);
+        return extractClaim(token, claims -> {
+            Object userMetadata = claims.get("user_metadata");
+
+            String avatar = ((Map<String, Object>) userMetadata).get("avatar_url").toString();
+            if (avatar != null) {
+                return avatar;
+            }
+
+            avatar = ((Map<String, Object>) userMetadata).get("picture").toString();
+            if (avatar != null) {
+                return avatar;
+            }
+
+            return null; // Return null if "users avatar" is missing
+        });
+    }
+
 //    public static String extractMetaData(String token) {
 ////        extractClaim(token, claims -> {claims.get("user_metadata.name")});
 //        return extractClaim(token, claims -> claims.get("user_metadata").toString());

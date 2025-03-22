@@ -2,6 +2,7 @@ package com.sched_ease.backend.database.entities;
 
 
 import com.google.gson.JsonObject;
+import com.sched_ease.backend.dto.UserResponse;
 import jakarta.persistence.*;
 
 @Entity
@@ -77,6 +78,8 @@ public class SDGPStudent extends Student{
         json.addProperty("leaderFlag", leaderFlag);
         return json;
     }
+
+
 
 
 }

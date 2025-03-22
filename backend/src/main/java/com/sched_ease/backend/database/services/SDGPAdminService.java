@@ -19,15 +19,30 @@ public class SDGPAdminService {
     }
 
     public SDGPLecturer getAdminByEmail(String email){
-        SDGPLecturer admin = repo.findByEmail(email);
-        if (admin == null || !admin.isSDGPAdminFlag()){
+        try {
+            if (repo.findByEmail(email).isPresent()) {
+                if (repo.findByEmail(email).get().isSDGPAdminFlag()) {
+                    System.out.println("SDGP Lecturer found, SDGP Lecturer is Admin");
+                    return repo.findByEmail(email).get();
+                } else {
+                    System.out.println("SDGP Lecturer found, SDGP Lecturer NOT is Admin");
+                    return null;
+                }
+            } else {
+                System.out.println("Lecturer not found, new Sdgp Lecturer cannot be created");
+                return null;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println("Error: " + e.getMessage());
             return null;
         }
-        return admin;
     }
 
     public SDGPLecturer getAdminByToken(String token){
         String email = JwtUtil.extractEmail(token);
+        System.out.println(email);
         return getAdminByEmail(email);
+//        return null;
     }
 }

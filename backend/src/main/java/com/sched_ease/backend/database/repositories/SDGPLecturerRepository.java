@@ -5,7 +5,9 @@ import com.sched_ease.backend.database.entities.SDGPGroup;
 import com.sched_ease.backend.database.entities.SDGPLecturer;
 import org.springframework.data.jpa.repository.JpaRepository;
 
+import java.util.Optional;
+
 public interface SDGPLecturerRepository extends JpaRepository<SDGPLecturer, Long> {
 
-    SDGPLecturer findByEmail(String email);
+    Optional<SDGPLecturer> findByEmail(String email);
 }
