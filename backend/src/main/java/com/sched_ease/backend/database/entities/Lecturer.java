@@ -1,21 +1,21 @@
 package com.sched_ease.backend.database.entities;
 
+import com.google.gson.JsonObject;
 import jakarta.persistence.*;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
 @Entity
-@Inheritance(strategy = InheritanceType.JOINED) // Creates separate tables for each subclass
+@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS) // Creates separate tables for each subclass
 @Table(name = "Lecturer")
 public class Lecturer {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "Lecturer_Id")
-    private Long id;
+    private @Id Long id;
 
     @Column(name = "Lecturer_Name")
     private String name;
@@ -26,12 +26,6 @@ public class Lecturer {
     @Column(name = "Lecturer_Email")
     private String email;
 
-//    @ManyToOne
-//    @JoinColumn(name = "Lecturers_Chat_Id", nullable = false)
-//    private Chat lecturersChatId;
-
-//    @Transient
-//    private int someNumber = 98;
 
     @ManyToMany
     @JoinTable(
@@ -51,13 +45,22 @@ public class Lecturer {
         this.id = id;
     }
 
+    public Lecturer(Long id, String name, String nameShort, String email, Set<TimeTableEntries> timeTableEntries, List<LecturerAvailability> availabilities) {
+        this.id = id;
+        this.name = name;
+        this.nameShort = nameShort;
+        this.email = email;
+        this.timeTableEntries = timeTableEntries;
+        this.availabilities = (availabilities != null) ? availabilities : new ArrayList<>(); ;
+    }
+
     public Lecturer(Long id, String name){
         this.id = id;
         this.name = name;
     }
 
     public Long getId() {
-        return this.id;
+        return id;
     }
 
     public void setId(Long id) {
@@ -97,28 +100,32 @@ public class Lecturer {
     }
 
     public List<LecturerAvailability> getAvailabilities() {
-        return availabilities;
+        return (List<LecturerAvailability>) availabilities;
     }
 
     public void setAvailabilities(List<LecturerAvailability> availabilities) {
-        this.availabilities.clear();
-        if (availabilities != null) {
-            this.availabilities.addAll(availabilities);
-        }
+        this.availabilities = availabilities;
     }
 
-    // Method to add a single availability
-    public void addAvailability(LecturerAvailability availability) {
-        if (availability != null) {
-            availability.setLecturer(this);
-            this.availabilities.add(availability);
-        }
+    @Override
+    public String toString() {
+        return "Lecturer{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", nameShort='" + nameShort + '\'' +
+                ", email='" + email + '\'' +
+                ", timeTableEntries=" + timeTableEntries +
+                ", availabilities=" + availabilities +
+                '}';
     }
 
-    public void removeAvailability(LecturerAvailability availability) {
-        if (availability != null) {
-            this.availabilities.remove(availability);
-            availability.setLecturer(null);
-        }
+    public JsonObject toJson() {
+        JsonObject json = new JsonObject();
+        json.addProperty("id", id);
+        json.addProperty("name", name);
+        json.addProperty("email", email);
+        json.addProperty("name-short", nameShort);
+//        json.addProperty("tutorial_group", tutorialGroup.getId());
+        return json;
     }
 }
