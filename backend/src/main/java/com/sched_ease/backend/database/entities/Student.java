@@ -29,7 +29,7 @@ public class Student {
     private String year;
 
     @ManyToOne(fetch = FetchType.EAGER, optional = true)
-    @JoinColumn(name = "Student_Group_Id", nullable=true)
+    @JoinColumn(name = "Tutorial_Group_Id", nullable=true)
     private TutorialGroup tutorialGroup;
 
     public Student(){}

@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name = "Student_Group")
+@Table(name = "Tutorial_Group")
 public class TutorialGroup {
 
     @Id
@@ -32,7 +32,6 @@ public class TutorialGroup {
 
     public TutorialGroup() {}
 
-    // Getters and Setters
     public Long getId() {
         return id;
     }
@@ -63,5 +62,21 @@ public class TutorialGroup {
 
     public void setCourse(String course) {
         this.course = course;
+    }
+
+    public TimeTable getTimeTable() {
+        return timeTable;
+    }
+
+    public void setTimeTable(TimeTable timeTable) {
+        this.timeTable = timeTable;
+    }
+
+    public List<Student> getStudents() {
+        return Students;
+    }
+
+    public void setStudents(List<Student> students) {
+        Students = students;
     }
 }
