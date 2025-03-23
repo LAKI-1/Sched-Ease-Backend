@@ -1,9 +1,10 @@
-package com.sched_ease.backend.unit_testing.login;
+package com.sched_ease.backend.unit_testing.utilityclasses;
 
 import com.sched_ease.backend.BackendApplication;
 import com.sched_ease.backend.database.entities.SDGPStudent;
 import com.sched_ease.backend.database.entities.Student;
 import com.sched_ease.backend.database.repositories.SDGPStudentRepository;
+import com.sched_ease.backend.database.repositories.StudentRepository;
 import com.sched_ease.backend.database.services.SDGPStudentService;
 import org.springframework.boot.Banner;
 import org.springframework.boot.SpringApplication;
@@ -11,16 +12,16 @@ import org.springframework.context.ApplicationContext;
 
 import java.util.List;
 
-public class SDGPStudentRegistrationTesting {
+public class ConvertAllStudentToSDGPStudents {
 
     public static void main(String[] args){
 
-        String testing_class = "SDGPStudentService";
-        String testing_method = "getStudentByEmail";
+        String target_class = "SDGPStudentService";
+        String target_method = "getStudentByEmail()";
 
         ApplicationContext context;
 
-        System.out.println("Starting unit testing for class: "+ testing_class +" for method: "+ testing_method + "()");
+        System.out.println("Targetting Utility at class: "+ target_class +" for method: "+ target_method);
 
         try {
             System.setProperty("logging.level.root", "OFF");
@@ -42,13 +43,13 @@ public class SDGPStudentRegistrationTesting {
         }
 
         try {
-            System.out.println("Staring testing...");
+            System.out.println("Staring Utility...");
 
             SDGPStudentService testingClass = context.getBean(SDGPStudentService.class);
             SDGPStudentRepository repo = context.getBean(SDGPStudentRepository.class);
+            StudentRepository studentRepo = context.getBean(StudentRepository.class);
 
-
-
+            List<Student> students = studentRepo.findAll();
             List<SDGPStudent> list = testingClass.getAllInRepo();
 
             Student student = testingClass.getStudentByEmail("cheran.20231111@iit.ac.lk").get();

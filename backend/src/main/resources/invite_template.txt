@@ -1,0 +1,16 @@
+Hello {invitee},
+
+You are invited to a session:
+
+📅 **Title:** {eventTitle}
+📝 **Description:** {eventDescription}
+📍 **Location:** {location}
+🕒 **Start Time:** {startDateTime}
+🕛 **End Time:** {endDateTime}
+👤 **Organizer:** {organizerName} ({organizerEmail})
+💼 **Meeting Link:** {meetingLink}
+
+Please confirm your availability.
+
+Best regards,
+{organizerName}

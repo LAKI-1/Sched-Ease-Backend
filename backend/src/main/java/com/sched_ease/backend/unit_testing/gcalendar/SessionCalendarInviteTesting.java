@@ -1,4 +1,4 @@
-package com.sched_ease.backend.unit_testing.login;
+package com.sched_ease.backend.unit_testing.gcalendar;
 
 import com.sched_ease.backend.BackendApplication;
 import com.sched_ease.backend.database.entities.SDGPStudent;
@@ -11,11 +11,11 @@ import org.springframework.context.ApplicationContext;
 
 import java.util.List;
 
-public class SDGPStudentRegistrationTesting {
+public class SessionCalendarInviteTesting {
 
     public static void main(String[] args){
 
-        String testing_class = "SDGPStudentService";
+        String testing_class = "GoogleCalendarService";
         String testing_method = "getStudentByEmail";
 
         ApplicationContext context;

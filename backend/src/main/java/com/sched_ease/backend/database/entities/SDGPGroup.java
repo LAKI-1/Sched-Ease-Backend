@@ -133,4 +133,23 @@ public class SDGPGroup {
     public void setStudents(List<SDGPStudent> students) {
         this.students = students;
     }
+
+    public SDGPStudent getGroupLeader() {
+        for (SDGPStudent leader : students){
+            if (leader.getLeaderFlag()){
+                return leader;
+            }
+        }
+        return null;
+    }
+
+    public List<SDGPStudent> getMembersOnly() {
+        List members = new ArrayList();
+        for (SDGPStudent member : students){
+            if (!member.getLeaderFlag()){
+                members.add(member);
+            }
+        }
+        return members;
+    }
 }
