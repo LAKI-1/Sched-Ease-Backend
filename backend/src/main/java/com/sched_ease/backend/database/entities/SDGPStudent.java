@@ -6,15 +6,15 @@ import com.sched_ease.backend.dto.UserResponse;
 import jakarta.persistence.*;
 
 @Entity
-//@PrimaryKeyJoinColumn(name = "student_id") // Uses the same ID as Student
-@Table(name = "sdgp_student")
-public class SDGPStudent extends Student{
+// @PrimaryKeyJoinColumn(name = "student_id") // Uses the same ID as Student
+@Table(name = "SDGP_Student")
+public class SDGPStudent extends Student {
 
     @Column(name = "SDGP_Leader_Flag")
     private Boolean leaderFlag = false;
 
     @ManyToOne(fetch = FetchType.EAGER, optional = true)
-    @JoinColumn(name = "sdgp_group_chat_id", nullable = true)
+    @JoinColumn(name = "Sdgp_Group_No", nullable = true)
     private SDGPGroup SDGPGroup;
 
     @ManyToOne(fetch = FetchType.EAGER, optional = true)
@@ -32,7 +32,7 @@ public class SDGPStudent extends Student{
     }
 
     public SDGPStudent() {
-        //super();
+        super();
     }
 
 //    public SDGPStudent(Student student){
@@ -40,7 +40,7 @@ public class SDGPStudent extends Student{
 //    }
 
     public Boolean getLeaderFlag() {
-        return leaderFlag;
+        return leaderFlag != null ? leaderFlag : false;
     }
 
     public void setLeaderFlag(Boolean leaderFlag) {
@@ -63,23 +63,21 @@ public class SDGPStudent extends Student{
         this.leadersSupervisorChat = leaderSupervisorChat;
     }
 
-    @Override
-    public String toString() {
-        return "student={" +super.toString() +
-                "}, leaderFlag=" + leaderFlag +
-                ", SDGPGroup=" + SDGPGroup +
-                ", leadersSupervisorChat=" + leadersSupervisorChat;
-    }
-
-    @Override
-    public JsonObject toJson() {
-        JsonObject json = new JsonObject();
-        json.add("student", super.toJson());  // Convert superclass properties to JSON
-        json.addProperty("leaderFlag", leaderFlag);
-        return json;
-    }
-
-
+//    @Override
+//    public String toString() {
+//        return "student={" +super.toString() +
+//                "}, leaderFlag=" + leaderFlag +
+//                ", SDGPGroup=" + SDGPGroup +
+//                ", leadersSupervisorChat=" + leadersSupervisorChat;
+//    }
+//
+//    @Override
+//    public JsonObject toJson() {
+//        JsonObject json = new JsonObject();
+//        json.add("student", super.toJson());  // Convert superclass properties to JSON
+//        json.addProperty("leaderFlag", leaderFlag);
+//        return json;
+//    }
 
 
 }
