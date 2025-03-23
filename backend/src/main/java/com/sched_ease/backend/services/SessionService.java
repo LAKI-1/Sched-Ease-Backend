@@ -2,6 +2,7 @@ package com.sched_ease.backend.services;
 
 import com.sched_ease.backend.database.entities.*;
 import com.sched_ease.backend.database.repositories.*;
+import com.sched_ease.backend.dto.SessionResponseDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -12,7 +13,10 @@ import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Service
 public class SessionService {
@@ -28,6 +32,52 @@ public class SessionService {
 
     @Autowired
     private HallRepository hallRepository;
+
+    @Autowired
+    private TimeTableEntriesRepository timeTableEntriesRepository;
+
+    public List<SessionResponseDTO> getSessionsByGroup(Long groupId) {
+        TutorialGroup group = tutorialGroupRepository.findById(groupId)
+                .orElseThrow(() -> new RuntimeException("Tutorial group not found with ID: " + groupId));
+
+        List<TimeTableEntries> entries = timeTableEntriesRepository.findByTutorialGroup(group);
+        return entries.stream().map(this::convertToDTO).collect(Collectors.toList());
+    }
+
+    private SessionResponseDTO convertToDTO(TimeTableEntries entry) {
+        SessionResponseDTO dto = new SessionResponseDTO();
+        dto.setId(entry.getId().toString());
+        dto.setGroup(entry.getTutorialGroup().getGroupNo());
+
+        // Get the first lecturer (assuming there's at least one)
+        if (!entry.getLecturers().isEmpty()) {
+            Lecturer lecturer = entry.getLecturers().iterator().next();
+            dto.setLecturer(lecturer.getNameShort());
+            dto.setLecturerId(lecturer.getId());
+        }
+
+        dto.setModule(entry.getCourse());
+        dto.setDate(entry.getDayOfWeek());
+
+        // Format times as HH:mm
+        DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm");
+        dto.setStartTime(entry.getStartTime().format(timeFormatter));
+        dto.setEndTime(entry.getEndTime().format(timeFormatter));
+
+        dto.setType(entry.getLectureOrTutorial());
+
+        if (entry.getHall() != null) {
+            dto.setBuilding(entry.getHall().getBuilding());
+            dto.setClassroom(entry.getHall().getName());
+            dto.setHallId(entry.getHall().getId());
+        }
+
+        if (entry.getTimeTable() != null) {
+            dto.setTimeTableId(entry.getTimeTable().getId());
+        }
+
+        return dto;
+    }
 
     // Method to add a session to a group
     @Transactional
