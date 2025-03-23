@@ -2,6 +2,7 @@ package com.sched_ease.backend.database.repositories;
 
 import com.sched_ease.backend.database.entities.Hall;
 import com.sched_ease.backend.database.entities.TimeTableEntries;
+import com.sched_ease.backend.database.entities.TutorialGroup;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -15,4 +16,6 @@ public interface TimeTableEntriesRepository extends JpaRepository<TimeTableEntri
             @Param("hall") Hall hall,
             @Param("lectureOrTutorial") String lectureOrTutorial
     );
+
+    List<TimeTableEntries> findByTutorialGroup(TutorialGroup tutorialGroup);
 }
