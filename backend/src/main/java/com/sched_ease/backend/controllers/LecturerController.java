@@ -19,7 +19,7 @@ import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/lecturers")
-@CrossOrigin(origins = "*")
+@CrossOrigin(origins = "http://localhost:3000")
 public class LecturerController {
     private static final Logger logger = LoggerFactory.getLogger(LecturerController.class);
 

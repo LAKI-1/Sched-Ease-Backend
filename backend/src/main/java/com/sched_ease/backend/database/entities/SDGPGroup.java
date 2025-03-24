@@ -87,7 +87,7 @@ public class SDGPGroup {
         this.registrationStatus = registrationStatus;
     }
 
-    public Chat getSDGPGroupChat() {
+    public SDGPGroupChat getSDGPGroupChat() {
         return sDGPGroupChat;
     }
 
@@ -103,36 +103,12 @@ public class SDGPGroup {
         this.vivaSession = vivaSession;
     }
 
-    public Lecturer getSupervisingLecturer() {
+    public SDGPLecturer getSupervisingLecturer() {
         return supervisingLecturer;
     }
 
     public void setSupervisingLecturer(SDGPLecturer supervisingLecturer) {
         this.supervisingLecturer = supervisingLecturer;
-    }
-
-    public SDGPGroupChat getsDGPGroupChat() {
-        return sDGPGroupChat;
-    }
-
-    public void setsDGPGroupChat(SDGPGroupChat sDGPGroupChat) {
-        this.sDGPGroupChat = sDGPGroupChat;
-    }
-
-    public List<FeedbackSession> getFeedbackSessions() {
-        return feedbackSessions;
-    }
-
-    public void setFeedbackSessions(List<FeedbackSession> feedbackSessions) {
-        this.feedbackSessions = feedbackSessions;
-    }
-
-    public List<LogEntry> getLogEntries() {
-        return logEntries;
-    }
-
-    public void setLogEntries(List<LogEntry> logEntries) {
-        this.logEntries = logEntries;
     }
 
     public List<SDGPStudent> getStudents() {

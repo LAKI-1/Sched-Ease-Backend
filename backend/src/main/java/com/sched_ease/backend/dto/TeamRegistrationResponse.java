@@ -6,28 +6,24 @@ import java.util.stream.Collectors;
 
 public class TeamRegistrationResponse {
     private Long id;
+    private String teamId;
     private String course;
     private int groupNo;
-    private boolean registrationStatus;
+    private String status;
     private List<StudentDTO> members;
 
     public static TeamRegistrationResponse fromEntity(SDGPGroup group) {
         TeamRegistrationResponse response = new TeamRegistrationResponse();
         response.setId(group.getId());
+        response.setTeamId(group.getCourse() + "-" + String.format("%02d", group.getGroupNo()));
         response.setCourse(group.getCourse());
         response.setGroupNo(group.getGroupNo());
-        response.setRegistrationStatus(group.isRegistrationStatus());
+        response.setStatus(group.isRegistrationStatus() ? "approved" : "pending");
 
-        // Convert SDGPStudents to StudentDTOs
         if (group.getStudents() != null) {
             response.setMembers(
                     group.getStudents().stream()
-                            .map(student -> new StudentDTO(
-                                    student.getId(),
-                                    student.getName(),
-                                    student.getEmail(),
-                                    student.getCourse()
-                            ))
+                            .map(StudentDTO::fromSDGPStudent)
                             .collect(Collectors.toList())
             );
         }
@@ -41,6 +37,14 @@ public class TeamRegistrationResponse {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public String getTeamId() {
+        return teamId;
+    }
+
+    public void setTeamId(String teamId) {
+        this.teamId = teamId;
     }
 
     public String getCourse() {
@@ -59,12 +63,12 @@ public class TeamRegistrationResponse {
         this.groupNo = groupNo;
     }
 
-    public boolean isRegistrationStatus() {
-        return registrationStatus;
+    public String getStatus() {
+        return status;
     }
 
-    public void setRegistrationStatus(boolean registrationStatus) {
-        this.registrationStatus = registrationStatus;
+    public void setStatus(String status) {
+        this.status = status;
     }
 
     public List<StudentDTO> getMembers() {
