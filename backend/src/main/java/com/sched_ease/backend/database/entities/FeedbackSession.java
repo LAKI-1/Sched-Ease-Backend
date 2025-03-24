@@ -48,6 +48,17 @@ public class FeedbackSession {
 
     public FeedbackSession() {}
 
+    public FeedbackSession(ZonedDateTime starDateTime, ZonedDateTime endDateTime, boolean confirmation, String status, String title, SDGPLecturer feedbackInstructorLecturer, Hall hall, SDGPGroup sDGPGroup) {
+        this.starDateTime = starDateTime;
+        this.endDateTime = endDateTime;
+        this.confirmation = confirmation;
+        this.status = status;
+        this.title = title;
+        this.feedbackInstructorLecturer = feedbackInstructorLecturer;
+        this.hall = hall;
+        this.sDGPGroup = sDGPGroup;
+    }
+
     public Long getId() {
         return id;
     }

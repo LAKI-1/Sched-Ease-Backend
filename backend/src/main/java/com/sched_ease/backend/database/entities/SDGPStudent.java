@@ -31,6 +31,16 @@ public class SDGPStudent extends Student{
         this.leaderFlag = false;
     }
 
+    public SDGPStudent(Student student, boolean leaderFlag) {
+        //super(student.getId(), student.getName(), student.getCourse(), student.getEmail(), student.getSemester(), student.getYear(), student.getTutorialGroup());
+
+//        this.id = student.getId();
+//        this.leaderFlag = false;
+
+        super(student.getId(), student.getName(), student.getCourse(), student.getEmail(), student.getSemester(), student.getYear(), student.getTutorialGroup());
+        this.leaderFlag = leaderFlag;
+    }
+
     public SDGPStudent() {
         //super();
     }

@@ -59,6 +59,12 @@ public class Lecturer {
         this.name = name;
     }
 
+    public Lecturer(String name, String nameShort, String email) {
+        this.name = name;
+        this.nameShort = nameShort;
+        this.email = email;
+    }
+
     public Long getId() {
         return id;
     }

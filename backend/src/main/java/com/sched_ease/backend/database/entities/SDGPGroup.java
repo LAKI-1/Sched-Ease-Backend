@@ -46,6 +46,15 @@ public class SDGPGroup {
 
     public SDGPGroup(){}
 
+    public SDGPGroup(int groupNo, String course, boolean registrationStatus, List<SDGPStudent> students) {
+        this.groupNo = groupNo;
+        this.course = course;
+        this.registrationStatus = registrationStatus;
+        this.supervisingLecturer = supervisingLecturer;
+        this.feedbackSessions = feedbackSessions;
+        this.students = students;
+    }
+
     public Long getId() {
         return id;
     }

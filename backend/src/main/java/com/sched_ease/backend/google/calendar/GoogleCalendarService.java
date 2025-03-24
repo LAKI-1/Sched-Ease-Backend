@@ -37,6 +37,8 @@ public class GoogleCalendarService {
     private static final List<String> SCOPES = Collections.singletonList(CalendarScopes.CALENDAR_EVENTS);
     private static final String CREDENTIALS_FILE_PATH = "/credentials.json"; // Ensure this is in `src/main/resources/`
 
+//    String filePath = Paths.get("src/main/resources/invite_template.txt").toAbsolutePath().toString();
+
     /**
      * Authenticate application and return Google Calendar Service.
      */
@@ -60,6 +62,7 @@ public class GoogleCalendarService {
 
         try {
             if (feedbackSession != null) {
+
                 String inviterEmail = feedbackSession.getsDGPGroup().getGroupLeader().getEmail();
                 List<String> invitees = new ArrayList<>();
                 String eventTitle = feedbackSession.getTitle();
@@ -67,18 +70,22 @@ public class GoogleCalendarService {
                 ZonedDateTime startTime = feedbackSession.getStarDateTime();
                 ZonedDateTime endTime = feedbackSession.getEndDateTime();
 
-                for (SDGPStudent member : feedbackSession.getsDGPGroup().getMembersOnly()) {
+                for (SDGPStudent member : feedbackSession.getsDGPGroup().getStudents()) {
                     invitees.add(member.getEmail());
                 }
 
-                createEvent(inviterEmail, invitees, eventTitle, eventDescription, startTime, endTime);
+                invitees.add(feedbackSession.getFeedbackInstructorLecturer().getEmail());
+
+                System.out.println(createEvent(inviterEmail, invitees, eventTitle, eventDescription, startTime, endTime));
+
+                return true;
 
             } else {
                 return false;
             }
-            return false;
         } catch (GeneralSecurityException | IOException e) {
 //            throw new RuntimeException(e);
+            e.printStackTrace();
             System.out.println(e.getMessage());
             return null;
         }
@@ -139,7 +146,7 @@ public class GoogleCalendarService {
     private String formatInviteBody(String inviteeEmail, String eventTitle, String eventDescription,
                                     String startDateTime, String endDateTime, String location,
                                     String organizerName, String organizerEmail, String meetingLink) throws IOException {
-        String templatePath = "src/main/resources/invite_template.txt";
+        String templatePath = "backend/src/main/resources/invitetemplate.txt";
         String template = new String(Files.readAllBytes(Paths.get(templatePath)), StandardCharsets.UTF_8);
 
         return template.replace("{invitee}", inviteeEmail)
