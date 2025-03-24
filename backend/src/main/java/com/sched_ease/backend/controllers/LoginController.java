@@ -1,4 +1,4 @@
-package com.sched_ease.backend.login;
+package com.sched_ease.backend.controllers;
 
 import com.google.gson.JsonObject;
 import com.sched_ease.backend.database.entities.ExternalAdministrator;

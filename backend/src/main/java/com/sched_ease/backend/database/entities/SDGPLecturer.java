@@ -60,6 +60,10 @@ public class SDGPLecturer extends Lecturer{
         return SDGPAdminFlag;
     }
 
+    public void setFeedbackInstructorFlag(boolean feedbackInstructorFlag) {
+        this.feedbackInstructorFlag = feedbackInstructorFlag;
+    }
+
     @Override
     public String toString() {
         return "SDGPLecturer{" +

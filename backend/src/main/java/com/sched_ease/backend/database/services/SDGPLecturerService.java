@@ -51,7 +51,7 @@ public class SDGPLecturerService {
                 entityManager.detach(lecturer);
                 newSdgpLecturer= repo.save(newSdgpLecturer);
 
-                newSdgpLecturer = entityManager.merge(newSdgpLecturer);
+//                newSdgpLecturer = entityManager.merge(newSdgpLecturer);
 
                 System.out.println("saved sdgpStudent");
                 return newSdgpLecturer;

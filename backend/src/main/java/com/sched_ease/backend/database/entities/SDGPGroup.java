@@ -46,6 +46,15 @@ public class SDGPGroup {
 
     public SDGPGroup(){}
 
+    public SDGPGroup(int groupNo, String course, boolean registrationStatus, List<SDGPStudent> students) {
+        this.groupNo = groupNo;
+        this.course = course;
+        this.registrationStatus = registrationStatus;
+        this.supervisingLecturer = supervisingLecturer;
+        this.feedbackSessions = feedbackSessions;
+        this.students = students;
+    }
+
     public Long getId() {
         return id;
     }
@@ -108,5 +117,24 @@ public class SDGPGroup {
 
     public void setStudents(List<SDGPStudent> students) {
         this.students = students;
+    }
+
+    public SDGPStudent getGroupLeader() {
+        for (SDGPStudent leader : students){
+            if (leader.getLeaderFlag()){
+                return leader;
+            }
+        }
+        return null;
+    }
+
+    public List<SDGPStudent> getMembersOnly() {
+        List members = new ArrayList();
+        for (SDGPStudent member : students){
+            if (!member.getLeaderFlag()){
+                members.add(member);
+            }
+        }
+        return members;
     }
 }

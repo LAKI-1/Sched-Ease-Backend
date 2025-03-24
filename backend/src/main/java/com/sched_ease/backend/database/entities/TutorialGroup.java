@@ -32,6 +32,14 @@ public class TutorialGroup {
 
     public TutorialGroup() {}
 
+    public TutorialGroup(String groupNo, String semester, String course, TimeTable timeTable, List<Student> students) {
+        this.groupNo = groupNo;
+        this.semester = semester;
+        this.course = course;
+        this.timeTable = timeTable;
+        Students = students;
+    }
+
     public Long getId() {
         return id;
     }

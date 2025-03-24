@@ -36,6 +36,12 @@ public class Hall {
     public Hall() {
     }
 
+    public Hall(String name, String building, List<FeedbackSession> feedbackSessions) {
+        this.name = name;
+        this.building = building;
+        this.feedbackSessions = feedbackSessions;
+    }
+
     public Long getId() {
         return id;
     }
